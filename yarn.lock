@@ -2448,11 +2448,6 @@
   resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-4.0.5.tgz#738dd390a6ecc5442f35e7f03fa1431353f7e138"
   integrity sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==
 
-"@types/json-schema@7.0.9":
-  version "7.0.9"
-  resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.9.tgz#97edc9037ea0c38585320b28964dde3b39e4660d"
-  integrity sha512-qcUXuemtEu+E5wZSJHNxUXeCZhAfXKQ41D+duX+VYPde7xyEVZci+/oXKJL13tnRs9lR2pr4fod59GT6/X1/yQ==
-
 "@types/json-stable-stringify@^1.0.32":
   version "1.0.34"
   resolved "https://registry.yarnpkg.com/@types/json-stable-stringify/-/json-stable-stringify-1.0.34.tgz#c0fb25e4d957e0ee2e497c1f553d7f8bb668fd75"
@@ -3691,6 +3686,11 @@ dependency-graph@^0.11.0:
   resolved "https://registry.yarnpkg.com/dependency-graph/-/dependency-graph-0.11.0.tgz#ac0ce7ed68a54da22165a85e97a01d53f5eb2e27"
   integrity sha512-JeMq7fEshyepOWDfcfHK06N3MhyPhz++vtqWhMT5O9A3K42rdsEDpfdVqjaqaAhsw6a+ZqeDvQVtD0hFHQWrzg==
 
+dependency-graph@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/dependency-graph/-/dependency-graph-1.0.0.tgz#bb5e85aec1310bc13b22dbd76e3196c4ee4c10d2"
+  integrity sha512-cW3gggJ28HZ/LExwxP2B++aiKxhJXMSIt9K48FOXQkm+vuG5gyatXnLsONRJdzO/7VfjDIiaOOa/bs4l464Lwg==
+
 detect-indent@^6.0.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/detect-indent/-/detect-indent-6.1.0.tgz#592485ebbbf6b3b1ab2be175c8393d04ca0d57e6"
@@ -4554,7 +4554,7 @@ graphemer@^1.4.0:
   resolved "https://registry.yarnpkg.com/graphemer/-/graphemer-1.4.0.tgz#fb2f1d55e0e3a1849aeffc90c4fa0dd53a0e66c6"
   integrity sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==
 
-graphql-config@4.3.6, graphql-config@^4.1.0:
+graphql-config@4.3.6:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/graphql-config/-/graphql-config-4.3.6.tgz#908ef03d6670c3068e51fe2e84e10e3e0af220b6"
   integrity sha512-i7mAPwc0LAZPnYu2bI8B6yXU5820Wy/ArvmOseDLZIu0OU1UTULEuexHo6ZcHXeT9NvGGaUPQZm8NV3z79YydA==
@@ -4589,41 +4589,6 @@ graphql-jit@0.8.6:
     lodash.memoize "^4.1.2"
     lodash.merge "4.6.2"
     lodash.mergewith "4.6.2"
-
-graphql-language-service-interface@2.10.2:
-  version "2.10.2"
-  resolved "https://registry.yarnpkg.com/graphql-language-service-interface/-/graphql-language-service-interface-2.10.2.tgz#de9386f699e446320256175e215cdc10ccf9f9b7"
-  integrity sha512-RKIEBPhRMWdXY3fxRs99XysTDnEgAvNbu8ov/5iOlnkZsWQNzitjtd0O0l1CutQOQt3iXoHde7w8uhCnKL4tcg==
-  dependencies:
-    graphql-config "^4.1.0"
-    graphql-language-service-parser "^1.10.4"
-    graphql-language-service-types "^1.8.7"
-    graphql-language-service-utils "^2.7.1"
-    vscode-languageserver-types "^3.15.1"
-
-graphql-language-service-parser@^1.10.4:
-  version "1.10.4"
-  resolved "https://registry.yarnpkg.com/graphql-language-service-parser/-/graphql-language-service-parser-1.10.4.tgz#b2979deefc5c0df571dacd409b2d5fbf1cdf7a9d"
-  integrity sha512-duDE+0aeKLFVrb9Kf28U84ZEHhHcvTjWIT6dJbIAQJWBaDoht0D4BK9EIhd94I3DtKRc1JCJb2+70y1lvP/hiA==
-  dependencies:
-    graphql-language-service-types "^1.8.7"
-
-graphql-language-service-types@^1.8.7:
-  version "1.8.7"
-  resolved "https://registry.yarnpkg.com/graphql-language-service-types/-/graphql-language-service-types-1.8.7.tgz#f5e909e6d9334ea2d8d1f7281b695b6f5602c07f"
-  integrity sha512-LP/Mx0nFBshYEyD0Ny6EVGfacJAGVx+qXtlJP4hLzUdBNOGimfDNtMVIdZANBXHXcM41MDgMHTnyEx2g6/Ttbw==
-  dependencies:
-    graphql-config "^4.1.0"
-    vscode-languageserver-types "^3.15.1"
-
-graphql-language-service-utils@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/graphql-language-service-utils/-/graphql-language-service-utils-2.7.1.tgz#c97c8d744a761480aba7e03e4a42adf28b6fce39"
-  integrity sha512-Wci5MbrQj+6d7rfvbORrA9uDlfMysBWYaG49ST5TKylNaXYFf3ixFOa74iM1KtM9eidosUbI3E1JlWi0JaidJA==
-  dependencies:
-    "@types/json-schema" "7.0.9"
-    graphql-language-service-types "^1.8.7"
-    nullthrows "^1.0.0"
 
 graphql-request@6.0.0:
   version "6.0.0"
@@ -5438,7 +5403,7 @@ jest-resolve@^28.1.3:
     resolve.exports "^1.1.0"
     slash "^3.0.0"
 
-jest-runner@28.1.3, jest-runner@^28.1.3:
+jest-runner@^28.1.3:
   version "28.1.3"
   resolved "https://registry.yarnpkg.com/jest-runner/-/jest-runner-28.1.3.tgz#5eee25febd730b4713a2cdfd76bdd5557840f9a1"
   integrity sha512-GkMw4D/0USd62OVO0oEgjn23TM+YJa2U2Wu5zz9xsQB1MxWKDOlrnykPxnMsN0tnJllfLPinHTka61u0QhaxBA==
@@ -6166,7 +6131,7 @@ npm-run-path@^5.1.0:
   dependencies:
     path-key "^4.0.0"
 
-nullthrows@^1.0.0, nullthrows@^1.1.1:
+nullthrows@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/nullthrows/-/nullthrows-1.1.1.tgz#7818258843856ae971eae4208ad7d7eb19a431b1"
   integrity sha512-2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw==
@@ -7687,11 +7652,6 @@ value-or-promise@^1.0.11, value-or-promise@^1.0.12:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/value-or-promise/-/value-or-promise-1.0.12.tgz#0e5abfeec70148c78460a849f6b003ea7986f15c"
   integrity sha512-Z6Uz+TYwEqE7ZN50gwn+1LCVo9ZVrpxRPOhOLnncYkY1ZzOYtrX8Fwf/rFktZ8R5mJms6EZf5TqNOMeZmnPq9Q==
-
-vscode-languageserver-types@^3.15.1:
-  version "3.17.3"
-  resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.17.3.tgz#72d05e47b73be93acb84d6e311b5786390f13f64"
-  integrity sha512-SYU4z1dL0PyIMd4Vj8YOqFvHu7Hz/enbWtpfnVbJHU4Nd1YNYx8u0ennumc6h48GQNeOLxmwySmnADouT/AuZA==
 
 walker@^1.0.8:
   version "1.0.8"
