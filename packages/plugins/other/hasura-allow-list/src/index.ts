@@ -1,3 +1,4 @@
+import { DepGraph } from 'dependency-graph';
 import {
   DefinitionNode,
   ExecutableDefinitionNode,
@@ -35,13 +36,39 @@ function getOperationFragmentsRecursively(
 
   // order of fragments is determined by the order they are defined in the document.
   if (order === 'document') {
-    return Array.from(requiredFragmentNames).map(name =>
+    // graph is built like the `fragmentsGraph` in packages/plugins/other/visitor-plugin-common/src/client-side-base-visitor.ts
+    const fragmentsGraph: DepGraph<string> = new DepGraph({ circular: true });
+    requiredFragmentNames.forEach(name => fragmentsGraph.addNode(name));
+    Array.from(requiredFragmentNames)
+      .map(name => fragmentDefinitions.find(f => f.name.value === name))
+      .forEach(def =>
+        getReferencedFragments(def).forEach(to => fragmentsGraph.addDependency(def.name.value, to)),
+      );
+
+    // this imitates the processing in _gql in  packages/plugins/other/visitor-plugin-common/src/client-side-base-visitor.ts
+    const fragmentsInDoc = getReferencedFragments(operationDefinition);
+    const order = new Set(
+      fragmentsInDoc.map(name => fragmentsGraph.dependenciesOf(name)).flatMap(item => item),
+    );
+    fragmentsInDoc.forEach(name => order.add(name));
+
+    return Array.from(order).map(name =>
       fragmentDefinitions.find(definition => definition.name.value === name),
     );
   }
 
   //  order is determined by the global fragments definition order.
   return fragmentDefinitions.filter(definition => requiredFragmentNames.has(definition.name.value));
+
+  function getReferencedFragments(definition: ExecutableDefinitionNode): string[] {
+    const dependencies: string[] = [];
+    visit(definition, {
+      FragmentSpread(fragmentSpreadNode) {
+        dependencies.push(fragmentSpreadNode.name.value);
+      },
+    });
+    return dependencies;
+  }
 
   /**
    * Given a definition adds required fragments to requieredFragmentsNames, recursively.

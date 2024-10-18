@@ -393,6 +393,205 @@ describe('Hasura allow list', () => {
 
     expect(content).toBe(expectedContent);
   });
+  it('with globalFragments enabled and fragmentsOrder set to document, should define fragment by the order they are defined in the document and take into account dependencies between fragments.', async () => {
+    const expectedContent = `- name: allowed-queries
+  definition:
+    queries:
+      - name: MyQuery5
+        query: |-
+          query MyQuery5 {
+            field
+            ...MyOtherFragment
+            ...MyFragment
+            ...PartFragment
+          }
+          fragment PartFragment on Query {
+            other_field
+          }
+          fragment MyOtherFragment on Query {
+            field
+            ...PartFragment
+          }
+          fragment MyFragment on Query {
+            field
+          }
+`;
+    const document1 = parse(/* GraphQL */ `
+      query MyQuery5 {
+        field
+        ...MyOtherFragment
+        ...MyFragment
+        ...PartFragment
+      }
+      fragment MyFragment on Query {
+        field
+      }
+    `);
+    const document2 = parse(/* GraphQL */ `
+      fragment MyOtherFragment on Query {
+        field
+        ...PartFragment
+      }
+    `);
+    const document3 = parse(/* GraphQL */ `
+      fragment PartFragment on Query {
+        other_field
+      }
+    `);
+    const content = await plugin(
+      null,
+      [
+        { document: document1, location: '/dummy/location1' },
+        { document: document2, location: '/dummy/location2' },
+        { document: document3, location: '/dummy/location3' },
+      ],
+      { globalFragments: true, fragmentsOrder: 'document' },
+    );
+
+    expect(content).toBe(expectedContent);
+  });
+  it('with globalFragments enabled and fragmentsOrder set to document, should define fragment by the order they are defined in the document and take into account dependencies between fragments (2).', async () => {
+    const expectedContent = `- name: allowed-queries
+  definition:
+    queries:
+      - name: MyQuery6
+        query: |-
+          query MyQuery6 {
+            id
+            ...Name
+            ...Context
+            ...More
+          }
+          fragment Type on Query {
+            type
+          }
+          fragment Name on Query {
+            name
+          }
+          fragment Context on Query {
+            ...Type
+            parent
+          }
+          fragment More on Query {
+            ...Type
+            field
+          }
+`;
+    const document1 = parse(/* GraphQL */ `
+      query MyQuery6 {
+        id
+        ...Name
+        ...Context
+        ...More
+      }
+    `);
+    const document2 = parse(/* GraphQL */ `
+      fragment Name on Query {
+        name
+      }
+    `);
+    const document3 = parse(/* GraphQL */ `
+      fragment Type on Query {
+        type
+      }
+    `);
+    const document4 = parse(/* GraphQL */ `
+      fragment Context on Query {
+        ...Type
+        parent
+      }
+    `);
+    const document5 = parse(/* GraphQL */ `
+      fragment More on Query {
+        ...Type
+        field
+      }
+    `);
+    const content = await plugin(
+      null,
+      [
+        { document: document1, location: '/dummy/location1' },
+        { document: document2, location: '/dummy/location2' },
+        { document: document3, location: '/dummy/location3' },
+        { document: document4, location: '/dummy/location4' },
+        { document: document5, location: '/dummy/location5' },
+      ],
+      { globalFragments: true, fragmentsOrder: 'document' },
+    );
+
+    expect(content).toBe(expectedContent);
+  });
+  it('with globalFragments enabled and fragmentsOrder set to document, should define fragment by the order they are defined in the document and take into account dependencies between fragments (3).', async () => {
+    const expectedContent = `- name: allowed-queries
+  definition:
+    queries:
+      - name: MyQuery7
+        query: |-
+          query MyQuery7 {
+            id
+            ...FullData
+            meta {
+              ...Synthetic
+            }
+          }
+          fragment Type on Query {
+            type
+          }
+          fragment Name on Query {
+            name
+          }
+          fragment FullData on Query {
+            value
+          }
+          fragment Synthetic on Query {
+            ...Type
+            ...Name
+          }
+`;
+    const document1 = parse(/* GraphQL */ `
+      query MyQuery7 {
+        id
+        ...FullData
+        meta {
+          ...Synthetic
+        }
+      }
+    `);
+    const document2 = parse(/* GraphQL */ `
+      fragment FullData on Query {
+        value
+      }
+    `);
+    const document3 = parse(/* GraphQL */ `
+      fragment Synthetic on Query {
+        ...Type
+        ...Name
+      }
+    `);
+    const document4 = parse(/* GraphQL */ `
+      fragment Name on Query {
+        name
+      }
+    `);
+    const document5 = parse(/* GraphQL */ `
+      fragment Type on Query {
+        type
+      }
+    `);
+    const content = await plugin(
+      null,
+      [
+        { document: document1, location: '/dummy/location1' },
+        { document: document2, location: '/dummy/location2' },
+        { document: document3, location: '/dummy/location3' },
+        { document: document4, location: '/dummy/location4' },
+        { document: document5, location: '/dummy/location5' },
+      ],
+      { globalFragments: true, fragmentsOrder: 'document' },
+    );
+
+    expect(content).toBe(expectedContent);
+  });
   it('with globalFragments enabled, should error on missing fragments', async () => {
     const document1 = parse(/* GraphQL */ `
       query MyQuery1 {
